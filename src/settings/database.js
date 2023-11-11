@@ -1,10 +1,10 @@
 import { connect } from "mongoose";
-import { config } from "./config.js";
+import { configEnv } from "./config.js";
 
 export const startConnection = async () => {
   try {
-    const db = await connect(config.mongo_uri, {
-      dbName: "prueba-1",
+    const db = await connect(configEnv.MONGO_URI, {
+      dbName: "product",
     });
     console.log("Database is connected to:", db.connection.name);
   } catch (error) {
