@@ -4,7 +4,9 @@ const  ctrlCreateSale   = async (req, res) => {
     try {
         const newSale = new SaleModel(req.body)
         await newSale.save()
-        res.status(201).json(newSale)
+
+        const createSale = await newSale.populate("products", ['-__v','-public','-slug','-image','-stock'])
+        res.status(201).json(createSale)
 
     } catch (error) {
         console.error(error);
