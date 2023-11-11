@@ -1,6 +1,6 @@
 import {Schema , Types, model} from "mongoose"
 
-const SaleShema = new Schema (
+const SaleSchema = new Schema (
     {
     mount: {
         type: Number,
@@ -18,6 +18,8 @@ const SaleShema = new Schema (
     },
 );
 
-const SaleModel = model ("Sale", SaleShema)
+SaleSchema
+
+const SaleModel = model ("Sale", SaleSchema)
 
 export {SaleModel}
