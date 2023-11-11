@@ -56,7 +56,7 @@ ProductSchema.pre("save", function(next){
     next()
 })
 
-const ProductModel = model("Produt", ProductSchema);
+const ProductModel = model("Product", ProductSchema);
 
 
 export {ProductModel}

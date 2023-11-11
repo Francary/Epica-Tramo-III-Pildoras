@@ -37,17 +37,6 @@ const ctrlGetProducts = async (req, res) => {
     }
 };
 
-// const ctrlUpdateProducts = async (req, res) => {
-//     const {productId} = req.params;
-//     try {
-//         const updateProduct = await ProductModel.findOneAndUpdate({ _id: productId}, req.body, {new: true})
-//         res.json(updateProduct)
-//     } catch (error) {
-//         console.error(error);
-//         res.sendStatus(500)
-//     }
-// };
-
 const ctrlUpdateProducts = async (req, res) => {
     const {productId} = req.params;
     try {

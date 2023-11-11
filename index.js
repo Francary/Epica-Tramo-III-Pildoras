@@ -7,6 +7,7 @@ import { configEnv } from "./src/settings/config.js";
 import { startConnection } from "./src/settings/database.js";
 import { userRouter } from "./src/routers/user.routes.js";
 import { productRouter } from "./src/routers/product.routes.js";
+import { saleRouter } from "./src/routers/sale.routes.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use("/api/products", productRouter)
 app.use("/users", userRouter);
+app.use("/api/sales", saleRouter);
 
 app.listen(configEnv.PORT, async () => {
   await startConnection();
