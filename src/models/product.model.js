@@ -36,8 +36,25 @@ const ProductSchema = new Schema({
   public: {
     type: Boolean,
     default: false,
+  },
+  slug:{
+    type: String
   }
 });
+
+ProductSchema.pre("save", function(next){
+  if (this.isModified("price")){
+    this.price = +this.price.toFixed(2)  }
+
+  if (this.isModified("name","slug")){
+    this.name = this.name.toLowerCase()
+    this.slug = this.name.replace(/ /g, '_')}
+  
+  if (this.isModified("stock")){
+    this.stock = parseInt(this.stock)
+  }
+    next()
+})
 
 const ProductModel = model("Produt", ProductSchema);
 

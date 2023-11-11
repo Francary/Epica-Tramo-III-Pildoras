@@ -2,7 +2,10 @@ import { ProductModel } from "../models/product.model.js"
 
 const ctrlCreateProducts = async (req, res) => {
     try {
-       const newProduct = await ProductModel.create(req.body);
+       //const newProduct = await ProductModel.create(req.body);
+       const newProduct = new ProductModel(req.body);
+       await newProduct.save()
+
        res.status(201).json(newProduct)
     } catch (error) {
         console.error(error);
@@ -12,7 +15,7 @@ const ctrlCreateProducts = async (req, res) => {
 
 const ctrlListProducts = async (req, res) => {
     try {
-        const allProducts = await ProductModel.find({public: true}, "-__v");
+        const allProducts = await ProductModel.find({public: false}, "-__v");
         if(allProducts.length < 1) return res.send("No hay Productos")
         res.json(allProducts);
 
@@ -34,10 +37,28 @@ const ctrlGetProducts = async (req, res) => {
     }
 };
 
+// const ctrlUpdateProducts = async (req, res) => {
+//     const {productId} = req.params;
+//     try {
+//         const updateProduct = await ProductModel.findOneAndUpdate({ _id: productId}, req.body, {new: true})
+//         res.json(updateProduct)
+//     } catch (error) {
+//         console.error(error);
+//         res.sendStatus(500)
+//     }
+// };
+
 const ctrlUpdateProducts = async (req, res) => {
     const {productId} = req.params;
     try {
-        const updateProduct = await ProductModel.findOneAndUpdate({ _id: productId}, req.body, {new: true})
+        const updateProduct = await ProductModel.findOne({ _id: productId})
+
+        if(!updateProduct) return res.send("Producto que intetas modificar no existe");
+
+        updateProduct.set(req.body)
+
+        await updateProduct.save();
+
         res.json(updateProduct)
     } catch (error) {
         console.error(error);
